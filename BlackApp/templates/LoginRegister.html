@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'log.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    {% if messages %}
+    <ul >    
+        {% for message in messages %}    
+            <li>{{ message }}</li>    
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+    <h1>Registration</h1>
+    <div id = 'register'>
+        <form action='/user/create' method="POST">
+            {% csrf_token %}
+            <label>First name
+                <input type = 'text' name= 'UserFname'>
+            </label>
+
+            <label>Last name
+                <input type = 'text' name= 'UserLname'>
+            </label>
+
+            <label>Email
+                <input type = 'text' name= 'UserMail'>
+            </label>
+
+            <label>Password
+                <input type = 'password' name= 'Userpass'>
+            </label>
+
+            <label>Confirm Password
+                <input type = 'password' name= 'UserconfirmPass'>
+            </label>
+
+        <input type='submit' value=' Register!'> 
+        </form>
+    </div>
+
+    <h1>Log in</h1>
+    <form action='/user/login' method="POST">
+        {% csrf_token %}
+        
+        <label>Email
+            <input type = 'text' name= 'UserMail'>
+        </label>
+
+        <label>Password
+            <input type = 'password' name= 'Userpass'>
+        </label>
+
+        <input type='submit' value = 'Log in'>
+</body>
+</html>

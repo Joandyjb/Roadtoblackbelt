@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{theUser.First_Name}} {{theUser.Last_Name}}' Quotes</h1>
+    
+    <form action= '/user/logout' method="POST">
+        {% csrf_token %}
+        <input type ='submit' value='Log out'>
+    </form>
+
+    <a href= '/user/returnp'>Go Back</a>
+    {%for quote in theUser.Quotes_posted.all %}
+        <p><b>Author: {{quote.Author_name }}</b>  </p>
+        <p> <i> '{{quote.desc }}' </i> </p>
+    {%endfor %}
+</body>
+</html>

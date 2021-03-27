@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Edit My Acoount</h1>
+    
+    {% if messages %}
+    <ul >    
+        {% for message in messages %}    
+            <li>{{ message }}</li>    
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <a href= '/user/returnp'>Go Back</a>
+
+    <form action= '/user/logout' method="POST">
+        {% csrf_token %}
+        <input type ='submit' value='Log out'>
+    </form>
+    
+    <form action='/user/update/{{UserEditobject.id}}' method="POST">
+        {% csrf_token %}
+        <label>First name
+            <input type = 'text' name= 'EUserFname' value ='{{UserEditobject.First_Name}}'>
+        </label>
+
+        <label>Last name
+            <input type = 'text' name= 'EUserLname' value= '{{UserEditobject.Last_Name}}'>
+        </label>
+
+        <label>Email
+            <input type = 'text' name= 'EUserMail'  value ='{{UserEditobject.Email}}'> 
+        </label>
+        
+        
+
+    <input type='submit' value=' Update'> 
+</form>
+
+
+</body>
+</html>

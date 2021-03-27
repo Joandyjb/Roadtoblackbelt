@@ -1,0 +1,14 @@
+*{
+    background-color: antiquewhite;
+}
+
+
+label{
+    display: block;
+    margin: 20px;
+}
+
+input[type=submit] {
+    background-color: green;
+}
+

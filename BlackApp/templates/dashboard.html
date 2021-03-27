@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'log.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    {% if messages %}
+    <ul >    
+        {% for message in messages %}    
+            <li>{{ message }}</li>    
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <h1> Welcome {{current_user.First_Name}} {{current_user.Last_Name}}!  </h1>
+
+    <form action= '/user/logout' method="POST">
+        {% csrf_token %}
+        <input type ='submit' value='Log out'>
+<div >   
+    </form>
+
+        <!-- <a href ='/myaccount/{{current_user.id}}'> Edit my Account</a> -->
+        <form action='/myaccount/{{current_user.id}}' method="POST" >
+            {% csrf_token %}
+            <input type="submit" value="Edit my account">
+        
+        
+        </form>
+        
+        Add a Quote!
+        <form action= '/user/create_quotes' method="POST">
+            {% csrf_token %}
+            
+            <label>Author:
+            <input type ='text' name='Post_Author'>
+            </label>
+
+            <label>Quote
+                <input type ='text' name='Post_Quote'>
+                </label>
+            
+            <input type ='submit' value='Post a Message'>
+        </form>
+</div> 
+<div>
+    {%for quote in all_Quotes reversed %}   
+        <p><b>{{quote.Author_name}}</b>: <i>"{{quote.desc}}" </i>  </p>
+        <p>Posted by <a href ='/user/{{quote.User_postingQuotes.id}}' >{{quote.User_postingQuotes.First_Name}} {{quote.User_postingQuotes.Last_Name}} </a> </p>
+        
+        
+        
+        
+        <form action='/like_quote/{{quote.id}}'  >
+            
+            <input type='submit' value='{{quote.USers_who_liked_Quotes.all.count}} Like'>
+        </form>
+        
+        {%if quote.User_postingQuotes.id  == request.session.User_id %}
+            <form action='/delete_quote/{{quote.id}}' method='POST'>
+                {% csrf_token %}
+            <input type='submit' value='delete Quote'>
+            </form>
+        {% endif %}
+        
+        {% endfor %}
+</div>  
+</body>
+</html>
